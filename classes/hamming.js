@@ -1,5 +1,6 @@
 //Hamming 4->7
 class HammingCode {
+///////////////////////////Encode\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   //dataToEncode [i1, i2, i3, i4]
   static encode(dataToEncode) {
     if(dataToEncode.length != 4) {
@@ -22,20 +23,46 @@ class HammingCode {
     6 = 110
     7 = 111
     */
-    hammingEncoded[2] = dataToEncode[0];
-    hammingEncoded[4] = dataToEncode[1];
-    hammingEncoded[5] = dataToEncode[2];
-    hammingEncoded[6] = dataToEncode[3];
+    hammingEncoded[2] = dataToEncode[0]; //3 = 1
+    hammingEncoded[4] = dataToEncode[1]; //5 = 2
+    hammingEncoded[5] = dataToEncode[2]; //6 = 3
+    hammingEncoded[6] = dataToEncode[3]; //7 = 4
 
-    hammingEncoded[0] = hammingEncoded[2] ^ hammingEncoded[4] ^ hammingEncoded[6];
-    hammingEncoded[1] = hammingEncoded[2] ^ hammingEncoded[5] ^ hammingEncoded[6];
-    hammingEncoded[3] = hammingEncoded[4] ^ hammingEncoded[5] ^ hammingEncoded[6];
+    hammingEncoded[0] = hammingEncoded[2] ^ hammingEncoded[4] ^ hammingEncoded[6]; //1 = 3 + 5 + 7
+    hammingEncoded[1] = hammingEncoded[2] ^ hammingEncoded[5] ^ hammingEncoded[6]; //2 = 3 + 6 + 7
+    hammingEncoded[3] = hammingEncoded[4] ^ hammingEncoded[5] ^ hammingEncoded[6]; //4 = 5 + 6 + 7
 
     return hammingEncoded;
   }
 
-  static decode() {
 
+///////////////////////////Decode\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+  static decode(dataToDecode) {
+    if(dataToDecode.length != 7) {
+      throw Error("HammingCode: dencode input must have exactly 7 bits");
+    }
+
+    for(let i = 0; i < 7; i++) {
+      if((dataToDecode[i] > 1)||(dataToDecode[i] == null)||(dataToDecode[i].toString() == 'undefined')) {
+        throw Error("HammingCode: dencode input must consist of bits");
+      }
+    }
+    let syndrome = [0, 0, 0];
+    syndrome[0] = dataToDecode[0] ^ dataToDecode[2] ^ dataToDecode[4] ^ dataToDecode[6];
+    syndrome[1] = dataToDecode[1] ^ dataToDecode[2] ^ dataToDecode[5] ^ dataToDecode[6];
+    syndrome[2] = dataToDecode[3] ^ dataToDecode[4] ^ dataToDecode[5] ^ dataToDecode[6];
+
+    let errorPosition = syndrome[0] * 1 + syndrome[1] * 2 + syndrome[2] * 4;
+
+    if(errorPosition != 0) {
+      dataToDecode[errorPosition - 1] ^= 1;
+    }
+
+    let hammingDecoded = [1, 1, 1, 1];
+    hammingDecoded[0] = dataToDecode[2]; //3
+    hammingDecoded[1] = dataToDecode[4]; //5
+    hammingDecoded[2] = dataToDecode[5]; //6
+    hammingDecoded[3] = dataToDecode[6]; //7
   }
 }
 
