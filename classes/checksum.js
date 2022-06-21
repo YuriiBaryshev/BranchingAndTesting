@@ -26,13 +26,13 @@ class Checksum {
        checksumEncoded[1] = dataToEncode[1];
        checksumEncoded[2] = dataToEncode[2];
        checksumEncoded[3] = dataToEncode[3];
-       checksumEncoded[4] = 1;
+       checksumEncoded[4] = 0;
     } else {
          checksumEncoded[0] = dataToEncode[0];
          checksumEncoded[1] = dataToEncode[1];
          checksumEncoded[2] = dataToEncode[2];
          checksumEncoded[3] = dataToEncode[3];
-         checksumEncoded[4] = 0;
+         checksumEncoded[4] = 1;
     }
 
     return checksumEncoded;
