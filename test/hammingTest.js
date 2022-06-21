@@ -48,6 +48,40 @@ describe('Hamming code testing', function() {
     }
   })
 
+it('decode correctly with proper input', function() {
+    let dataToDecode = [0,0,0,0,0,0,0];
+    let expectedDecoded = [0,0,0,0];
+    let decoded = hamming.encode(dataToDecode);
+    assert.equal(decoded.length == 4, true);
+    for(let i = 0; i < 4; i++) {
+      assert.equal(decoded[i], expectedDecoded[i]);
+    }
+
+    dataToDecode = [1,1,1,0,0,0,0];
+    expectedDecoded = [1,0,0,0];
+    decoded = hamming.encode(dataToDecode);
+    assert.equal(decoded.length == 4, true);
+    for(let i = 0; i < 4; i++) {
+      assert.equal(decoded[i], expectedDecoded[i]);
+    }
+
+    dataToDecode = [1,0,0,1,1,0,0];
+    expectedDecoded = [0,1,0,0];
+    decoded = hamming.encode(dataToDecode);
+    assert.equal(decoded.length == 4, true);
+    for(let i = 0; i < 4; i++) {
+      assert.equal(decoded[i], expectedDecoded[i]);
+    }
+
+    dataToDecode = [1,1,0,1,0,0,1];
+    expectedDecoded = [0,0,0,1];
+    decoded = hamming.encode(dataToDecode);
+    assert.equal(decoded.length == 4, true);
+    for(let i = 0; i < 4; i++) {
+      assert.equal(decoded[i], expectedDecoded[i]);
+    }
+  })
+
   it('encode correctly with inproper input', function() {
     assert.throws(() => {
       let dataToEncode = [0,0,0,0,0];
