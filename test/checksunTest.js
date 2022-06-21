@@ -12,26 +12,26 @@ it('encode correctly with proper input', function() {
     }
 
     dataToEncode = [1,0,0,0];
-    expectedEncoded = [1,1,1,0,0,0,0];
+    expectedEncoded = [1,0,0,0,1];
     encoded = checksum.encode(dataToEncode);
     assert.equal(encoded.length == 5, true);
     for(let i = 0; i < 5; i++) {
       assert.equal(encoded[i], expectedEncoded[i]);
     }
 
-    dataToEncode = [0,1,0,0];
-    expectedEncoded = [1,0,0,1,1,0,0];
+    dataToEncode = [0,1,1,1];
+    expectedEncoded = [0,1,1,1,1];
     encoded = checksum.encode(dataToEncode);
-    assert.equal(encoded.length == 7, true);
-    for(let i = 0; i < 7; i++) {
+    assert.equal(encoded.length == 5, true);
+    for(let i = 0; i < 5; i++) {
       assert.equal(encoded[i], expectedEncoded[i]);
     }
 
-    dataToEncode = [0,0,0,1];
-    expectedEncoded = [1,1,0,1,0,0,1];
+    dataToEncode = [0,1,0,1];
+    expectedEncoded = [0,1,0,1,0];
     encoded = checksum.encode(dataToEncode);
-    assert.equal(encoded.length == 7, true);
-    for(let i = 0; i < 7; i++) {
+    assert.equal(encoded.length == 5, true);
+    for(let i = 0; i < 5; i++) {
       assert.equal(encoded[i], expectedEncoded[i]);
     }
   })
