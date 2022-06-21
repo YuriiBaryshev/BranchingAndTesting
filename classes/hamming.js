@@ -34,8 +34,25 @@ class HammingCode {
     return hammingEncoded;
   }
 
-  static decode() {
+  static decode(dataToDecode) {
+   if(dataToDecode.length != 7) {
+      throw Error("HammingCode: decode input must have exactly 7 bits");
+    }
 
+    for(let i = 0; i < 7; i++) {
+      if((dataToDecode[i] > 1)||(dataToDecode[i] == null)||(dataToDecode[i].toString() == 'undefined')) {
+        throw Error("HammingCode: decode input must consist of bits");
+      }
+    }
+
+    let hammingDecoded = [1,1,1,1];
+
+    hammingDecoded[0] = dataToDecode[2];
+    hammingDecoded[1] = dataToDecode[4];
+    hammingDecoded[2] = dataToDecode[5];
+    hammingDecoded[3] = dataToDecode[6];
+
+    return hammingDecoded;
   }
 }
 
