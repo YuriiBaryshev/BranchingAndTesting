@@ -63,6 +63,8 @@ class HammingCode {
     hammingDecoded[1] = dataToDecode[4]; //5
     hammingDecoded[2] = dataToDecode[5]; //6
     hammingDecoded[3] = dataToDecode[6]; //7
+
+    return hammingDecoded;
   }
 }
 
