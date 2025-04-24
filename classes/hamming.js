@@ -95,6 +95,51 @@ class HammingCode {
 
     return errorPosition === 0;
   }
+ 
+static injectMultipleErrors(data, positions) {
+  if (!Array.isArray(data) || data.length !== 7) {
+    throw Error("injectMultipleErrors: input must be 7-bit array");
+  }
+  if (!Array.isArray(positions) || positions.some(pos => pos < 1 || pos > 7)) {
+    throw Error("injectMultipleErrors: positions must be in range 1-7");
+  }
+
+  const corrupted = [...data];
+  positions.forEach(position => {
+    corrupted[position - 1] = 1 - corrupted[position - 1]; 
+  });
+
+  return corrupted;
+}
+
+static parityCheckDecode(data) {
+  if (!Array.isArray(data) || data.length !== 7) {
+    throw Error("parityCheckDecode: input must be 7-bit array");
+  }
+
+  const i1 = data[2];
+  const i2 = data[4];
+  const i3 = data[5];
+  const i4 = data[6];
+
+ 
+  const expectedP1 = i1 ^ i2 ^ i4;
+  const expectedP2 = i1 ^ i3 ^ i4;
+  const expectedP3 = i2 ^ i3 ^ i4;
+
+
+  const isValid =
+    data[0] === expectedP1 &&
+    data[1] === expectedP2 &&
+    data[3] === expectedP3;
+
+  if (isValid) {
+    return [i1, i2, i3, i4];
+  } else {
+    return null;
+  }
+}
+
 }
 
 module.exports = HammingCode;
