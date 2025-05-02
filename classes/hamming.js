@@ -95,6 +95,15 @@ class HammingCode {
 
     return errorPosition === 0;
   }
+  static generateRandomEncoded() {
+    const randomBits = Array.from({ length: 4 }, () => Math.round(Math.random()));
+    const encoded = HammingCode.encode(randomBits);
+    return {
+      original: randomBits,
+      encoded: encoded
+    };
+  }
+  
 }
 
 module.exports = HammingCode;
